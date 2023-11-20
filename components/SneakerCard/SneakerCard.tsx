@@ -15,6 +15,7 @@ const SneakerCard: React.FC<SneakerCardProps> = ({ sneaker, onDelete }) => {
                     <button onClick={onDelete}>delete</button>
                 </div>
                 <div>{sneaker.brand}</div>
+                <div>{sneaker.rating}</div>
             </div>
             <div className="flex flex-row text-left">
                 <div className="flex flex-col mr-3 border-r border-gray-300 pr-24">

@@ -5,26 +5,26 @@ import { deleteSneakerEntry, fetchSneakerData } from '@/pages/api/api';
 import { Sneaker } from '@/utils/types';
 import Image from 'next/image';
 import HotTrendingIcon from '/public/svg/desktop/streamline-icon-hot-trending-2@140x140 1.svg';
+import SideDrawer from '../SideDrawer/SideDrawer';
 
 
 const MainPanel: React.FC = () => {
 const [sneakerData, setSneakerData] = useState<Sneaker[]>([])
 const [searchQuery, setSearchQuery] = useState('');
+const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(false);
 
+const openSideDrawer = () => setIsSideDrawerOpen(true);
 
-useEffect(() => { 
-    const getSneakerData = async () => {
-        const data = await fetchSneakerData();
-        setSneakerData(data);
-      };
-  
-      getSneakerData();
-}, []);
+const closeSideDrawer = () => setIsSideDrawerOpen(false);
 
 const handleDelete = async (id: string) => { 
   await deleteSneakerEntry(id)
   setSneakerData(sneakerData.filter(sneaker => sneaker._id !== id));
 }
+
+const handleAddSneaker = (newSneaker: Sneaker) => {
+  setSneakerData([...sneakerData, newSneaker]);
+};
 
 const sortBySize = () => {
   const sortedData = [...sneakerData].sort((a, b) => a.size - b.size);
@@ -50,8 +50,19 @@ const filteredSneakers = sneakerData.filter(sneaker =>
   sneaker.name.toLowerCase().includes(searchQuery.toLowerCase())
 );
 
+
+useEffect(() => { 
+  const getSneakerData = async () => {
+      const data = await fetchSneakerData();
+      setSneakerData(data);
+    };
+
+    getSneakerData();
+}, []);
+
   return (
     <div>
+      <SideDrawer isOpen={isSideDrawerOpen} onClose={closeSideDrawer} onAddSneaker={handleAddSneaker}/>
       <div className="flex  mb-8 justify-end">
         <input 
         type="text"
@@ -60,7 +71,7 @@ const filteredSneakers = sneakerData.filter(sneaker =>
         onChange={handleSearchChange}
         className="p-2 border rounded"
       />
-      <button>Add new sneaker</button>
+      <button onClick={openSideDrawer}>Add new sneaker</button>
     </div>
       <div className="flex space-x-2 mb-4 justify-end">
         <span className="text-center self-center pr-5">Sort by:</span>
