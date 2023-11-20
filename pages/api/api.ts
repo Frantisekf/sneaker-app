@@ -18,14 +18,10 @@ export const fetchSneakerData = async (): Promise<Sneaker[]> => {
     }
   }
 
-export const deleteSneakerEntry = async (id: string): Promise<void> => { 
+export const deleteSneakerEntry = async (_id: string): Promise<void> => { 
     try {
-        const response = await fetch(`${API_URL}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ id })
+        const response = await fetch(`${API_URL}/${_id}`, {
+            method: 'DELETE', 
         })
         if (!response.ok) {
             throw new Error('Network response was not ok');

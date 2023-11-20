@@ -1,10 +1,11 @@
 
 export type Sneaker = {
+    _id: string,
     name:string,
     brand:string,
-    price: string,
-    sizeUs: string,
-    year: string,
+    price: number,
+    size: number,
+    year: number,
     rating: Rate
 }
 
