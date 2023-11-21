@@ -1,12 +1,18 @@
-import React from "react";
-import { Sneaker } from "@/utils/types";
+import React, { useState } from "react";
+import { Rate, Sneaker } from "@/utils/types";
+import StarRating from "../StarRating/StarRating";
 
 type SneakerCardProps = {
     sneaker: Sneaker;
     onDelete: () => void;
 }
 
+
 const SneakerCard: React.FC<SneakerCardProps> = ({ sneaker, onDelete }) => { 
+
+    const [rating, setRating] = useState(sneaker.rating);
+
+
     return (
         <div className="w-[424px] h-[202px] mt-4 ml-1 p-6 bg-white rounded-lg shadow-lg flex flex-col justify-between">
             <div>
@@ -15,7 +21,7 @@ const SneakerCard: React.FC<SneakerCardProps> = ({ sneaker, onDelete }) => {
                     <button onClick={onDelete}>delete</button>
                 </div>
                 <div>{sneaker.brand}</div>
-                <div>{sneaker.rating}</div>
+                <StarRating rating={sneaker.rating}/>
             </div>
             <div className="flex flex-row text-left">
                 <div className="flex flex-col mr-3 border-r border-gray-300 pr-24">

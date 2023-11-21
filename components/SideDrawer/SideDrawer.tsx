@@ -1,6 +1,7 @@
 import { addSneakerEntry } from '@/pages/api/api';
 import { Sneaker } from '@/utils/types';
 import React, { useState } from 'react';
+import { type Rate } from '@/utils/types';
 
 type SideDrawerProps = {
   isOpen: boolean;
@@ -16,7 +17,7 @@ const SideDrawer: React.FC<SideDrawerProps> = ({ isOpen, onClose, onAddSneaker }
     price: 0,
     size: 0,
     year: 0,
-    rating: 0,
+    rating: 1,
   });
 
   const drawerClasses = isOpen
